@@ -122,7 +122,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FileText className="text-accent h-6 w-6" />
-            <h1 className="text-xl font-bold text-gray-900">LAPA SLOVAKIA s. r. o. - fotodokumentace</h1>
+            <h1 className="text-xl font-bold text-gray-900">LAPA SERVICE s.r.o. - fotodokumentace</h1>
           </div>
           <div className="flex items-center gap-4">
              <span className="text-sm text-gray-500 hidden sm:inline-block">
