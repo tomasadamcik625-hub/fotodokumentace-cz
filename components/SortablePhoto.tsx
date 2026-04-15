@@ -47,7 +47,7 @@ export const SortablePhoto: React.FC<SortablePhotoCardProps> = ({
         <button
           onClick={() => onRemove(photo.id)}
           className="p-1 text-gray-400 hover:text-red-500 rounded transition-colors"
-          title="Odstrániť fotku"
+          title="Odstranit fotku"
         >
           <X size={20} />
         </button>
@@ -75,13 +75,13 @@ export const SortablePhoto: React.FC<SortablePhotoCardProps> = ({
           id={`caption-${photo.id}`}
           value={photo.caption}
           onChange={(e) => onCaptionChange(photo.id, e.target.value)}
-          placeholder="Zadajte popis fotky..."
+          placeholder="Zadejte popis fotky..."
           rows={2}
           className="w-full text-sm p-2 border border-gray-300 rounded focus:ring-2 focus:ring-accent focus:border-accent outline-none resize-none font-sans bg-white text-gray-900"
         />
         <div className="mt-1 flex justify-between items-center text-xs text-gray-400">
            <span>16x12,01cm | 12pt</span>
-           <span>{(index + 1) % 2 === 0 ? "Koniec strany" : ""}</span>
+           <span>{(index + 1) % 2 === 0 ? "Konec stránky" : ""}</span>
         </div>
       </div>
     </div>

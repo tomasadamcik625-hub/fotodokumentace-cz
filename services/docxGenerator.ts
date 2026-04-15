@@ -46,6 +46,7 @@ export const generateDocxReport = async (photos: PhotoItem[], title: string) => 
           size: 24, // 12pt = 24 half-points
           bold: true,
           color: "000000",
+          language: { value: "cs-CZ" },
         }),
       ],
       alignment: AlignmentType.CENTER,
@@ -54,16 +55,13 @@ export const generateDocxReport = async (photos: PhotoItem[], title: string) => 
     })
   );
 
-  // Add an empty line after title to separate it from the first photo
-  children.push(new Paragraph({ children: [], spacing: { after: 0, line: 240 } }));
-
   for (let i = 0; i < photos.length; i++) {
     const photo = photos[i];
-    
+
     try {
       const imageBuffer = await readFileAsArrayBuffer(photo.file);
-      
-      // Logic: A new page starts on index 2, 4, 6, etc. (0 and 1 are Page 1)
+
+      // Page 1 = index 0 and 1. Page 2+ starts at index 2, 4, 6, ...
       const isStartOfNewPage = i > 0 && i % 2 === 0;
 
       // Detect image type from file MIME type
@@ -87,13 +85,14 @@ export const generateDocxReport = async (photos: PhotoItem[], title: string) => 
             }),
           ],
           alignment: AlignmentType.CENTER,
-          // keepNext ensures the image stays attached to the caption below
-          keepNext: true, 
-          // Request: Spacing After 0, Single Line Spacing
-          spacing: { before: 0, after: 0, line: 240 }, 
+          keepNext: true,
+          spacing: { before: 0, after: 0, line: 240 },
           pageBreakBefore: isStartOfNewPage,
         })
       );
+
+      // Empty line before every caption (always)
+      children.push(new Paragraph({ children: [], spacing: { after: 0, line: 240 } }));
 
       // Caption Paragraph
       children.push(
@@ -102,20 +101,19 @@ export const generateDocxReport = async (photos: PhotoItem[], title: string) => 
             new TextRun({
               text: photo.caption || `Foto č. ${i + 1}`,
               font: "Calibri",
-              size: 24, // 12pt = 24 half-points
+              size: 22, // 11pt = 22 half-points
+              language: { value: "cs-CZ" },
             }),
           ],
           alignment: AlignmentType.CENTER,
           keepLines: true,
-          // Request: Spacing After 0, Single Line Spacing
-          spacing: { after: 0, line: 240 }, 
+          spacing: { after: 0, line: 240 },
         })
       );
 
-      // If this is the first photo of a pair (and not the last photo overall),
-      // add an empty line to separate it from the next photo visually.
-      if (i % 2 === 0 && i < photos.length - 1) {
-         children.push(new Paragraph({ children: [], spacing: { after: 0, line: 240 } }));
+      // Empty line after caption if there is a next photo
+      if (i < photos.length - 1) {
+        children.push(new Paragraph({ children: [], spacing: { after: 0, line: 240 } }));
       }
 
     } catch (error) {
@@ -124,6 +122,15 @@ export const generateDocxReport = async (photos: PhotoItem[], title: string) => 
   }
 
   const doc = new Document({
+    styles: {
+      default: {
+        document: {
+          run: {
+            language: { value: "cs-CZ" },
+          },
+        },
+      },
+    },
     sections: [
       {
         properties: {
@@ -142,5 +149,5 @@ export const generateDocxReport = async (photos: PhotoItem[], title: string) => 
   });
 
   const blob = await Packer.toBlob(doc);
-  saveAs(blob, "fotodokumentacia_export.docx");
+  saveAs(blob, "fotodokumentace_export.docx");
 };

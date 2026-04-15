@@ -22,7 +22,7 @@ import { generateDocxReport } from './services/docxGenerator';
 export default function App() {
   const [photos, setPhotos] = useState<PhotoItem[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [docTitle, setDocTitle] = useState("FOTODOKUMENTÁCIA Z NÁŠHO MIESTNEHO ŠETRENIA, ZO DŇA");
+  const [docTitle, setDocTitle] = useState("FOTODOKUMENTACE Z NAŠEHO MÍSTNÍHO ŠETŘENÍ, ZE DNE");
   const [isDragOver, setIsDragOver] = useState(false);
 
   const sensors = useSensors(
@@ -109,7 +109,7 @@ export default function App() {
       await generateDocxReport(photos, docTitle);
     } catch (e) {
       console.error(e);
-      alert("Nastala chyba pri generovaní dokumentu.");
+      alert("Nastala chyba při generování dokumentu.");
     } finally {
       setIsGenerating(false);
     }
@@ -122,11 +122,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FileText className="text-accent h-6 w-6" />
-            <h1 className="text-xl font-bold text-gray-900">LAPA SLOVAKIA s. r. o. - fotodokumentácia</h1>
+            <h1 className="text-xl font-bold text-gray-900">LAPA SLOVAKIA s. r. o. - fotodokumentace</h1>
           </div>
           <div className="flex items-center gap-4">
              <span className="text-sm text-gray-500 hidden sm:inline-block">
-               {photos.length} {photos.length === 1 ? 'fotografia' : (photos.length >= 2 && photos.length <= 4 ? 'fotografie' : 'fotografií')}
+               {photos.length} {photos.length === 1 ? 'fotografie' : (photos.length >= 2 && photos.length <= 4 ? 'fotografie' : 'fotografií')}
              </span>
             <button
               onClick={handleDownload}
@@ -137,7 +137,7 @@ export default function App() {
                   : 'bg-accent hover:bg-sky-700 shadow-md hover:shadow-lg'
               }`}
             >
-              {isGenerating ? 'Generujem...' : 'Stiahnuť DOCX'}
+              {isGenerating ? 'Generuji...' : 'Stáhnout DOCX'}
               {!isGenerating && <Download size={18} />}
             </button>
           </div>
@@ -161,10 +161,10 @@ export default function App() {
               </div>
             </div>
             <h3 className="text-lg font-medium text-gray-900">Nahrajte fotografie</h3>
-            <p className="mt-1 text-sm text-gray-500">Drag & drop alebo kliknite pre výber</p>
+            <p className="mt-1 text-sm text-gray-500">Drag & drop nebo klikněte pro výběr</p>
             <div className="mt-6">
               <label className="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-accent hover:bg-sky-700">
-                Vybrať súbory
+                Vybrat soubory
                 <input
                   type="file"
                   className="hidden"
@@ -182,7 +182,7 @@ export default function App() {
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
               <label htmlFor="docTitle" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
                 <PenTool size={16} />
-                Nadpis dokumentu (prvý riadok vo Worde)
+                Nadpis dokumentu (první řádek ve Wordu)
               </label>
               <input
                 id="docTitle"
@@ -190,7 +190,7 @@ export default function App() {
                 value={docTitle}
                 onChange={(e) => setDocTitle(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-gray-900 bg-white"
-                placeholder="Zadajte nadpis dokumentu..."
+                placeholder="Zadejte nadpis dokumentu..."
               />
             </div>
 
@@ -203,7 +203,7 @@ export default function App() {
             >
               <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 border border-blue-200 shadow-sm text-sm font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50">
                 <Plus size={16} />
-                Pridať ďalšie
+                Přidat další
                 <input
                   type="file"
                   className="hidden"
